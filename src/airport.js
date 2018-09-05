@@ -1,36 +1,23 @@
 function Airport() {  
-};
-
-Airport.prototype.land = function(plane) {
-  this.hangar << (plane);
-  return "Plane landed"
-};
-
-
-Airport.prototype.hangar = function(capacity) {
   this.hangar = []
+  this.capacity = 20
 };
 
-
-function Player() {
-}
-Player.prototype.play = function(song) {
-  this.currentlyPlayingSong = song;
-  this.isPlaying = true;
-};
-
-Player.prototype.pause = function() {
-  this.isPlaying = false;
-};
-
-Player.prototype.resume = function() {
-  if (this.isPlaying) {
-    throw new Error("song is already playing");
+Airport.prototype.land = function(plane, weather = new Weather()) {
+  if (weather.isStormy() === true) {
+    throw new Error ('Weather is too stormy')
+  } else { 
+    if (this.hangar.length >= this.capacity) {
+      throw new Error('Hangar is at capacity')
+    } 
+    this.hangar.push(plane);
+    return "Plane landed"
   }
-
-  this.isPlaying = true;
 };
 
-Player.prototype.makeFavorite = function() {
-  this.currentlyPlayingSong.persistFavoriteStatus(true);
+Airport.prototype.take_off = function(plane) {
+  // this.hangar.remove(plane)
+  return "Plane has taken off"
 };
+
+

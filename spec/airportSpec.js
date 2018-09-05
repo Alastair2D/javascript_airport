@@ -1,75 +1,57 @@
 describe("Airport", function() {
-  var a1;
-  var p1;
+  var heathrow;
+  var ba737;
+  var sunnyWeather;
+  var stormyWeather;
 
   beforeEach(function() {
-    a1 = new Airport();
-    p1 = new Plane(); 
+    heathrow = new Airport();
+    ba737 = new Plane(); 
+    sunnyWeather = new Weather();
+    stormyWeather = new Weather();
   });
 
-it("should be able to land a plane", function() {
-  expect(a1.land(p1)).toEqual("Plane landed");
-});
+describe('When the hangar is at capacity', function () {
+  beforeEach(function() {
+    spyOn(sunnyWeather, 'isStormy').and.returnValue(false);
+  })
+  it('should not allow plane', function () {
+    for (var i = 0; i < 20; i++) {
+      heathrow.land(`plane${i}`, sunnyWeather)   // heathrow.land(ba737);
+      }
+      expect(function () { heathrow.land(ba737, sunnyWeather) }).toThrowError('Hangar is at capacity'); // testing an error has to be a function
+    });
+  });
 
-
+describe('When the weather is sunny', function(){
+  beforeEach(function () {
+    spyOn(sunnyWeather, 'isStormy').and.returnValue(false);
+  })
+  describe('#land', function () {
+    it('should be able to land a plane', function () {
+      expect(heathrow.land(ba737, sunnyWeather)).toEqual("Plane landed");
+    });
+  })
+  describe('#take_off', function () {
+    it('should be able to take_off a plane', function () {
+      expect(heathrow.take_off(ba737)).toEqual("Plane has taken off");
+    });
+  })
 })
 
-
-// describe("Player", function() {
-//   var player;
-//   var song;
-
-//   beforeEach(function() {
-//     player = new Player();
-//     song = new Song();
-//   });
-
-//   it("should be able to play a Song", function() {
-//     player.play(song);
-//     expect(player.currentlyPlayingSong).toEqual(song);
-
-//     //demonstrates use of custom matcher
-//     expect(player).toBePlaying(song);
-//   });
-
-//   describe("when song has been paused", function() {
-//     beforeEach(function() {
-//       player.play(song);
-//       player.pause();
+// describe('When the weather is stormy', function () {
+//   beforeEach(function () {
+//     spyOn(stormyWeather, 'isStormy').and.returnValue(true);
+//   })
+//   describe('#land', function () {
+//     it('should not be able to land a plane', function () {
+//       expect(function(){ heathrow.land(ba737, stormyWeather) }).toThrowError("Weather is too stormy");
 //     });
-
-//     it("should indicate that the song is currently paused", function() {
-//       expect(player.isPlaying).toBeFalsy();
-
-//       // demonstrates use of 'not' with a custom matcher
-//       expect(player).not.toBePlaying(song);
+//   })
+//   describe('#take_off', function () {
+//     it('should be able to take_off a plane', function () {
+//       expect(heathrow.take_off(ba737)).toEqual("Plane has taken off");
 //     });
+//   })
 
-//     it("should be possible to resume", function() {
-//       player.resume();
-//       expect(player.isPlaying).toBeTruthy();
-//       expect(player.currentlyPlayingSong).toEqual(song);
-//     });
-//   });
-
-//   // demonstrates use of spies to intercept and test method calls
-//   it("tells the current song if the user has made it a favorite", function() {
-//     spyOn(song, 'persistFavoriteStatus');
-
-//     player.play(song);
-//     player.makeFavorite();
-
-//     expect(song.persistFavoriteStatus).toHaveBeenCalledWith(true);
-//   });
-
-//   //demonstrates use of expected exceptions
-//   describe("#resume", function() {
-//     it("should throw an exception if song is already playing", function() {
-//       player.play(song);
-
-//       expect(function() {
-//         player.resume();
-//       }).toThrowError("song is already playing");
-//     });
-//   });
-// });
+})
