@@ -39,19 +39,20 @@ describe('When the weather is sunny', function(){
   })
 })
 
-// describe('When the weather is stormy', function () {
-//   beforeEach(function () {
-//     spyOn(stormyWeather, 'isStormy').and.returnValue(true);
-//   })
-//   describe('#land', function () {
-//     it('should not be able to land a plane', function () {
-//       expect(function(){ heathrow.land(ba737, stormyWeather) }).toThrowError("Weather is too stormy");
-//     });
-//   })
-//   describe('#take_off', function () {
-//     it('should be able to take_off a plane', function () {
-//       expect(heathrow.take_off(ba737)).toEqual("Plane has taken off");
-//     });
-//   })
+describe('When the weather is stormy', function () {
+  beforeEach(function () {
+    spyOn(stormyWeather, 'isStormy').and.returnValue(true);
+  })
+  describe('#land', function () {
+    it('should not be able to land a plane', function () {
+      expect(function(){ heathrow.land(ba737, stormyWeather) }).toThrowError("Weather is too stormy");
+    });
+  })
+  describe('#take_off', function () {
+    it('should be able to take_off a plane', function () {
+      expect(heathrow.take_off(ba737)).toEqual("Plane has taken off");
+    });
+  })
+  })
 
 })
