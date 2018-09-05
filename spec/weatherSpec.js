@@ -1,7 +1,7 @@
-describe("Weather", function () {
+describe('Weather', function() {
   var w1
 
-  beforeEach(function () {
+  beforeEach(function() {
     w1 = new Weather();
   });
 

@@ -20,4 +20,3 @@ Airport.prototype.take_off = function(plane) {
   return "Plane has taken off"
 };
 
-
